@@ -1,6 +1,5 @@
-/*****provaa 1*/
+/*****provaa 2*/
 /*****/
-
 
 /**
  * Una semplice classe che modella un attrezzo.
