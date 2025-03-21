@@ -29,9 +29,11 @@ public class DiaDia {
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
 
 	private Partita partita;
+	private Labirinto labirinto;
 
 	public DiaDia() {
 		this.partita = new Partita();
+		
 	}
 
 	public void gioca() {
@@ -53,6 +55,8 @@ public class DiaDia {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
+		
+		if(comandoDaEseguire.getNome() != null) {
 
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
@@ -62,13 +66,13 @@ public class DiaDia {
 		else if (comandoDaEseguire.getNome().equals("aiuto"))
 			this.aiuto();
 		else
-			System.out.println("Comando sconosciuto");
+			System.out.println("Comando sconosciuto");}
 		if (this.partita.vinta()) {
 			System.out.println("Hai vinto!");
 			return true;
 		} else
 			return false;
-	}   
+	}  
 
 	// implementazioni dei comandi dell'utente:
 
@@ -89,15 +93,17 @@ public class DiaDia {
 		if(direzione==null)
 			System.out.println("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
+
+		prossimaStanza = this.labirinto.getStanzaIniziale().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
 			System.out.println("Direzione inesistente");
 		else {
-			this.partita.setStanzaCorrente(prossimaStanza);
+			this.labirinto.setStanzaIniziale(prossimaStanza);
 			int cfu = this.partita.getCfu();
 			this.partita.setCfu(cfu--);
 		}
-		System.out.println(partita.getStanzaCorrente().getDescrizione());
+		System.out.println(labirinto.getStanzaIniziale().getDescrizione());
+		
 	}
 
 	/**
