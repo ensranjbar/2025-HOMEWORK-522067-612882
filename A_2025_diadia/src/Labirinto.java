@@ -44,21 +44,16 @@ public class Labirinto {
 		// il gioco comincia nell'atrio
         this.stanzaIniziale = atrio;  
 		this.stanzaVincente = biblioteca;
+		
     }
 
 	public Stanza getStanzaIniziale() {
 		return this.stanzaIniziale;
 	}
 
-	public void setStanzaIniziale(Stanza stanzaIniziale) {
-		this.stanzaIniziale = stanzaIniziale;
-	}
-
 	public Stanza getStanzaVincente() {
 		return this.stanzaVincente;
 	}
 
-	public void setStanzaVincente(Stanza stanzaVincente) {
-		this.stanzaVincente = stanzaVincente;
-	}
+
 }

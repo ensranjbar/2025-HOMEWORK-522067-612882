@@ -43,7 +43,7 @@ public class DiaDia {
 		System.out.println(MESSAGGIO_BENVENUTO);
 		scannerDiLinee = new Scanner(System.in);		
 		do		
-			istruzione = scannerDiLinee.nextLine();
+		istruzione = scannerDiLinee.nextLine();
 		while (!processaIstruzione(istruzione));
 	}   
 
@@ -94,15 +94,15 @@ public class DiaDia {
 			System.out.println("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
 
-		prossimaStanza = this.labirinto.getStanzaIniziale().getStanzaAdiacente(direzione);
+		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
 			System.out.println("Direzione inesistente");
 		else {
-			this.labirinto.setStanzaIniziale(prossimaStanza);
+			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getCfu();
 			this.partita.setCfu(cfu--);
 		}
-		System.out.println(labirinto.getStanzaIniziale().getDescrizione());
+		System.out.println(this.partita.getStanzaCorrente().getDescrizione());
 		
 	}
 
