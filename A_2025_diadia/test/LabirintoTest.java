@@ -1,23 +1,11 @@
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LabirintoTest {
-
-	private Labirinto labirinto;
-	
-	private Stanza stanza1;
-	private Stanza stanza2;
-	
-	@Before
-	public void setUp(){
-		this.labirinto = new Labirinto();
-		this.stanza1 = this.labirinto.getStanzaIniziale();
-	}
+class LabirintoTest {
 
 	@Test
-	public void test() {
+	void test() {
 		fail("Not yet implemented");
 	}
 

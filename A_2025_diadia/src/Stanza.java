@@ -1,6 +1,4 @@
-
-
-
+import java.util.Objects;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -50,7 +48,7 @@ public class Stanza {
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
         boolean aggiornato = false;
     	for(int i=0; i<this.direzioni.length; i++)
-        	if (direzione.equals(this.direzioni[i])) {
+        	if (Objects.equals(direzione,this.direzioni[i])) {
         		this.stanzeAdiacenti[i] = stanza;
         		aggiornato = true;
         	}
