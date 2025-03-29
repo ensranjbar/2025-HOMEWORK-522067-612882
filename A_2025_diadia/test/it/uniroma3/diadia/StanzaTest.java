@@ -1,15 +1,19 @@
+package it.uniroma3.diadia;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.Attrezzo;
+import it.uniroma3.diadia.Stanza;
+
 class StanzaTest {
-Stanza s1;
-Stanza s2;
-Stanza s3;
-Stanza s4;
-Stanza s5;
-Attrezzo a1;
+private Stanza s1;
+private Stanza s2;
+private Stanza s3;
+private Stanza s4;
+private Stanza s5;
+private Attrezzo a1;
 
 
 	@BeforeEach
@@ -55,8 +59,31 @@ Attrezzo a1;
 	
 	@Test
 	void testAddAttrezzo() {
-		s1.addAttrezzo(a1);
-		assertEquals(a1, this.s1.getAttrezzo("Penna"));
+		assertFalse(this.s1.hasAttrezzo("Penna"));
+		this.s1.addAttrezzo(a1);
+		assertTrue(this.s1.hasAttrezzo("Penna"));
 	}
 	
+	@Test
+	void testHasAttrezzo() {
+		this.s1.addAttrezzo(a1);
+		assertTrue(this.s1.hasAttrezzo("Penna"));
+	}
+	
+	@Test
+	void testRemoveAttrezzo() {
+		assertFalse(this.s1.removeAttrezzo(a1));
+		this.s1.addAttrezzo(a1);
+		assertTrue(this.s1.removeAttrezzo(a1));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+    

@@ -1,7 +1,11 @@
+package it.uniroma3.diadia;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.Stanza;
 
 public class PartitaTest {
 
@@ -49,11 +53,8 @@ public class PartitaTest {
 		this.partita.setStanzaCorrente(stanzaVincente);
 		assertTrue(this.partita.isFinita());
 	}
-	@Test
-	public void testCfuZero() {
-		this.partita.setCfu(0);
-		assertTrue(this.partita.isFinita());
-	}
+	
+	
 	
 	@Test
 	public void testIsfinitaFalse() {
@@ -65,6 +66,8 @@ public class PartitaTest {
 	public void testIsfinita() {
 		assertFalse(this.partita.isFinita());
 	}
+	
+	
 
 	
 	

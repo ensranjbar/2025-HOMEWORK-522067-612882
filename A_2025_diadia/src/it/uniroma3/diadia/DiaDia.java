@@ -1,3 +1,4 @@
+package it.uniroma3.diadia;
 
 
 import java.util.Scanner;
@@ -30,6 +31,7 @@ public class DiaDia {
 
 	private Partita partita;
 	private Labirinto labirinto;
+	
 
 	public DiaDia() {
 		this.partita = new Partita();
@@ -56,7 +58,9 @@ public class DiaDia {
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
 		
-		if(comandoDaEseguire.getNome() != null) {
+		if(comandoDaEseguire.getNome() == null) {
+			return false;
+		}
 
 		if (comandoDaEseguire.getNome().equals("fine")) {
 			this.fine(); 
@@ -66,11 +70,17 @@ public class DiaDia {
 		else if (comandoDaEseguire.getNome().equals("aiuto"))
 			this.aiuto();
 		else
-			System.out.println("Comando sconosciuto");}
+			System.out.println("Comando sconosciuto");
+		if(this.partita.isFinita()) {
+			
 		if (this.partita.vinta()) {
 			System.out.println("Hai vinto!");
 			return true;
-		} else
+		}
+		System.out.println("Hai perso! Hai finito i cfu");
+		
+		return true;
+		}
 			return false;
 	}  
 
@@ -100,9 +110,9 @@ public class DiaDia {
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getCfu();
-			this.partita.setCfu(cfu--);
+			this.partita.setCfu(cfu-1);
 		}
-		System.out.println(this.partita.getStanzaCorrente().getDescrizione());
+		System.out.println(this.partita);
 		
 	}
 

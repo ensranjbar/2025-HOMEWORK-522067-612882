@@ -1,3 +1,4 @@
+package it.uniroma3.diadia;
 import java.util.Objects;
 
 /**
@@ -139,8 +140,8 @@ public class Stanza {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
+		for (int i=0; i<this.numeroAttrezzi;i++) {
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
 				trovato = true;
 		}
 		return trovato;
@@ -167,8 +168,15 @@ public class Stanza {
 	 * @param nomeAttrezzo
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
-	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		// TODO da implementare
+	public boolean removeAttrezzo(Attrezzo wanted) {
+		for(int i=0;i<this.numeroAttrezzi;i++) {
+			if(this.attrezzi[i]==wanted) {
+				this.attrezzi[i] = this.attrezzi[this.numeroAttrezzi-1];
+				this.attrezzi[this.numeroAttrezzi-1] = null;
+				this.numeroAttrezzi--;
+				return true;
+			}
+		}
 		return false;
 	}
 
