@@ -47,6 +47,7 @@ public class DiaDia {
 		//scannerDiLinee = new Scanner(io.leggiRiga());
 		do
 			istruzione = this.io.leggiRiga();
+		
 		while (!processaIstruzione(istruzione));
 	}
 
