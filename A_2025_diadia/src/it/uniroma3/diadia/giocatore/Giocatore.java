@@ -4,7 +4,7 @@ public class Giocatore {
 
 	private Borsa borsa;
 	private int cfu;
-	static final private int CFU_INIZIALI = 20;
+	static final public int CFU_INIZIALI = 20;
 
 	public Giocatore() {
 		this.cfu = CFU_INIZIALI;

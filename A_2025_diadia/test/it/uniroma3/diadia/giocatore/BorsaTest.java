@@ -78,7 +78,7 @@ class BorsaTest {
 	}
 	
 	@Test
-	void AddAttrezzoSopraPesoMax10() {
+	void testAddAttrezzoSopraPesoMax10() {
 		this.borsa.addAttrezzo(attrezzo);
 		assertTrue(this.borsa.hasAttrezzo("penna"));
 		
@@ -95,10 +95,8 @@ class BorsaTest {
 		assertFalse(this.borsa.hasAttrezzo("tablet"));
 	}
 	
-	
-	
 	@Test
-	void AddAttrezzoConBorsaPiena10Attrezzi() {
+	void testAddAttrezzoConBorsaPiena10Attrezzi() {
 		this.borsa.addAttrezzo(attrezzo);
 		assertTrue(this.borsa.hasAttrezzo("penna"));
 		
@@ -113,6 +111,19 @@ class BorsaTest {
 		this.borsa.addAttrezzo(attrezzo9);
 		this.borsa.addAttrezzo(attrezzo10);
 		assertFalse(this.borsa.hasAttrezzo("tablet"));
+	}
+	
+	//TEST HAS ATTREZZO
+	@Test
+	void testHasNessunAttrezzo() {
+		assertFalse(this.borsa.hasAttrezzo("penna"));
+	}
+	
+	@Test
+	void testHasAttrezzoPresente() {
+		assertFalse(this.borsa.hasAttrezzo("penna"));
+		this.borsa.addAttrezzo(attrezzo);
+		assertTrue(this.borsa.hasAttrezzo("penna"));
 	}
 	
 	
