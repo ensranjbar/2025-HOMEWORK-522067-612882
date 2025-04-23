@@ -14,6 +14,17 @@ private Stanza s3;
 private Stanza s4;
 private Stanza s5;
 private Attrezzo a1;
+private Attrezzo a2;
+private Attrezzo a3;
+private Attrezzo a4;
+private Attrezzo a5;
+private Attrezzo a6;
+private Attrezzo a7;
+private Attrezzo a8;
+private Attrezzo a9;
+private Attrezzo a10;
+private Attrezzo a11;
+
 
 
 	@BeforeEach
@@ -23,7 +34,18 @@ private Attrezzo a1;
 		this.s3=new Stanza("s3");
 		this.s2=new Stanza("s4");
 		this.s3=new Stanza("s5");
+		
 		this.a1=new Attrezzo("Penna", 1);
+		this.a2 = new Attrezzo("pc",1);
+		this.a3 = new Attrezzo("matita",1);
+		this.a4 = new Attrezzo("libro",1);
+		this.a5 = new Attrezzo("cell",1);
+		this.a6 = new Attrezzo("bottiglia",1);
+		this.a7 = new Attrezzo("cuffie",1);
+		this.a8 = new Attrezzo("occhiali",1);
+		this.a9 = new Attrezzo("medicina",1);
+		this.a10 = new Attrezzo("quaderno",1);
+		this.a11 = new Attrezzo("tablet",1);
 	}
 //testImpostaStanzaAdiacente
 	@Test
@@ -40,10 +62,9 @@ private Attrezzo a1;
 	}
 	
 	@Test 
-	void testDirezioneNull() {
+	void testImpostaAdidacenteDirezioneNull() {
 		this.s1.impostaStanzaAdiacente(null, s2);
 		assertNull( this.s1.getStanzaAdiacente(null));
-
 	}
 
 	@Test
@@ -51,7 +72,6 @@ private Attrezzo a1;
 		this.s1.impostaStanzaAdiacente("nord", s2);
 		this.s1.impostaStanzaAdiacente("nord", s3);
 		assertEquals(s3, this.s1.getStanzaAdiacente("nord"));
-
 	}
 	
 
@@ -65,16 +85,44 @@ private Attrezzo a1;
 	}
 	
 	@Test
-	void testHasAttrezzo() {
+	void testAddAttrezzoSopraLimiteAttrezzi(){
+		this.s1.addAttrezzo(a1);
+		this.s1.addAttrezzo(a2);
+		this.s1.addAttrezzo(a3);
+		this.s1.addAttrezzo(a4);
+		this.s1.addAttrezzo(a5);
+		this.s1.addAttrezzo(a6);
+		this.s1.addAttrezzo(a7);
+		this.s1.addAttrezzo(a8);
+		this.s1.addAttrezzo(a9);
+		this.s1.addAttrezzo(a10);
+		this.s1.addAttrezzo(a11);
+		assertFalse(this.s1.hasAttrezzo("tablet"));
+		assertTrue(this.s1.hasAttrezzo("quaderno"));
+	}
+	
+	@Test
+	void testHasAttrezzoEsistente() {
 		this.s1.addAttrezzo(a1);
 		assertTrue(this.s1.hasAttrezzo("Penna"));
 	}
 	
 	@Test
-	void testRemoveAttrezzo() {
+	void testHasAttrezzoInesistente() {
+		assertFalse(this.s1.hasAttrezzo("Penna"));
+	}
+	
+	@Test
+	void testRemoveAttrezzoEsistente() {
 		assertFalse(this.s1.removeAttrezzo(a1));
 		this.s1.addAttrezzo(a1);
 		assertTrue(this.s1.removeAttrezzo(a1));
+	}
+	
+	@Test
+	void testRemoveAttrezzoInesistente() {
+		assertFalse(this.s1.removeAttrezzo(a1));
+		
 	}
 	
 	

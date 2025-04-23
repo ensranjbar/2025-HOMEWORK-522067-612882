@@ -15,57 +15,28 @@ class GiocatoreTest {
     
 	
 	private Partita partita;
-	private Borsa borsa;
-	private Attrezzo attrezzo;
-	private Attrezzo attrezzo1;
-	private Attrezzo attrezzo2;
 	private Giocatore giocatore;
+
 
 	@BeforeEach
 	void setUp() throws Exception {
 		this.partita = new Partita();
-		this.giocatore = new Giocatore();
-		this.borsa = new Borsa();
-		this.attrezzo = new Attrezzo("penna",1);
-		this.attrezzo1 = new Attrezzo("pc",1);
-		this.attrezzo2 = new Attrezzo("matita",1);
+        this.giocatore = new Giocatore();
 		
 	}
 
+	
+	
 	@Test
-	public void testPartitaFinitaAZeroCfu() {
-		this.partita.setCfu(0);
-		assertTrue(this.partita.isFinita());
+	public void testCfuNonFinitiInizioPartita() {
+		assertNotEquals(0,this.giocatore.getCfu());
 	}
 	
 	@Test
-	public void testPartitaNonFinitaAZeroCfu() {
-		this.partita.setCfu(3);
-		assertFalse(this.partita.isFinita());
+	public void testCfuIniziali() {
+		assertEquals(Giocatore.CFU_INIZIALI,this.giocatore.getCfu());
 	}
-	
-	//TEST POSA
-//	@Test
-//	public void testPosaAttrezzoNonEsistente() {
-//		assertFalse(this.borsa.hasAttrezzo("bottiglia"));
-//		this.giocatore.posa("bottiglia");
-//		assertFalse(this.partita.getStanzaCorrente().hasAttrezzo("bottiglia"));
-//	}
-//	
-//	@Test
-//	public void testPosaAttrezzoEsistente() {
-//		assertFalse(this.borsa.hasAttrezzo("matita"));
-//		this.borsa.addAttrezzo(attrezzo2);
-//		this.giocatore.posa("matita");
-//		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("matita"));
-//	}
-	
-//	//TEST PRENDI
-//	@Test
-//	public void testPrendiAttrezzoEsistente() {}
-//	
-//	@Test
-//	public void testPrendiAttrezzoNonEsistente() {}
+
 	
 	
 

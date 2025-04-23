@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,17 @@ public class PartitaTest {
 		assertTrue(this.partita.isFinita());
 	}
 	
+	@Test
+	public void testPartitaIsFinitaAZeroCfu() {
+		this.partita.setCfu(0);
+		assertTrue(this.partita.isFinita());
+	}
+	
+	@Test
+	public void testPartitaNonIsFinita() {
+		this.partita.setCfu(3);
+		assertFalse(this.partita.isFinita());
+	}
 	
 	
 	@Test
@@ -66,6 +78,9 @@ public class PartitaTest {
 	public void testIsfinita() {
 		assertFalse(this.partita.isFinita());
 	}
+	
+	//TEST PER I CFU
+	
 	
 	
 

@@ -7,13 +7,22 @@ import org.junit.jupiter.api.Test;
 
 class LabirintoTest {
 
+	
+	private Labirinto labirinto;
+
 	@BeforeEach
 	void setUp() throws Exception {
+		this.labirinto = new Labirinto();
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testStanzaInizialeNotNull() {
+		assertNotNull(this.labirinto.getStanzaIniziale());
+	}
+	
+	@Test
+	void testStanzaVincenteNotNull() {
+		assertNotNull(this.labirinto.getStanzaVincente());
 	}
 
 }
