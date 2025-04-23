@@ -36,6 +36,10 @@ public class Attrezzo {
 	public String getNome() {
 		return this.nome;
 	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	/**
 	 * Restituisce il peso dell'attrezzo

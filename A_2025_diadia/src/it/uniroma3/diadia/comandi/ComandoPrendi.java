@@ -7,6 +7,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class ComandoPrendi implements Comando {
 	private String nomeAttrezzo;
 	private IOConsole io;
+	private Attrezzo attrezzo;
+	private static final String NOME = "prendi";
 	
 	public ComandoPrendi(String nomeAttrezzo){
 		this.nomeAttrezzo=nomeAttrezzo;
@@ -16,14 +18,14 @@ public class ComandoPrendi implements Comando {
 	}
 	@Override
 	public void esegui(Partita partita) {
-		Attrezzo a = null;
+		this.attrezzo = null;
 
-		if (partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
-			a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+		if (partita.getStanzaCorrente().hasAttrezzo(this.attrezzo.getNome())) {
+			this.attrezzo = partita.getStanzaCorrente().getAttrezzo(this.attrezzo.getNome());
 
-			partita.getGiocatore().getBorsa().addAttrezzo(a);
-			partita.getStanzaCorrente().removeAttrezzo(a);
-			io.mostraMessaggio("\n Attrezzo " + nomeAttrezzo + " preso");
+			partita.getGiocatore().getBorsa().addAttrezzo(this.attrezzo);
+			partita.getStanzaCorrente().removeAttrezzo(this.attrezzo);
+			io.mostraMessaggio("\n Attrezzo " + this.attrezzo.getNome() + " preso");
 
 		} else {
 			io.mostraMessaggio("Attrezzo non esistente!");
@@ -34,7 +36,20 @@ public class ComandoPrendi implements Comando {
 
 	@Override
 	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
+		this.attrezzo.setNome(parametro);
+	}
+	@Override
+	public String getNome() {
+		return NOME;
+	}
+	@Override
+	public void setIo(IOConsole io) {
+		this.io = io;
+		
+	}
+	@Override
+	public String getParametro() {
+		return this.attrezzo.getNome();
 	}
 
 }
