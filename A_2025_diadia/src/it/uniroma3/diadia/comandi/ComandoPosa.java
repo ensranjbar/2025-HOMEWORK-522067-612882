@@ -8,22 +8,22 @@ public class ComandoPosa implements Comando {
 	
 	private IOConsole io;
 	private final static String NOME = "posa";
-	private Attrezzo attrezzo;
+	private String nomeAttrezzo;
 	
 	public ComandoPosa(String nomeAttrezzo){
-		this.attrezzo.setNome(nomeAttrezzo);
+		this.nomeAttrezzo=nomeAttrezzo;
 	}
 	public ComandoPosa(){
 	
 	}
 	@Override
 	public void esegui(Partita partita) {
-		this.attrezzo = null;
-		if (partita.getGiocatore().getBorsa().hasAttrezzo(this.attrezzo.getNome())) {
-			this.attrezzo = partita.getGiocatore().getBorsa().getAttrezzo(this.attrezzo.getNome());
-			partita.getGiocatore().getBorsa().removeAttrezzo(this.attrezzo.getNome());
-			partita.getStanzaCorrente().addAttrezzo(this.attrezzo);
-			io.mostraMessaggio("\n Attrezzo " + this.attrezzo.getNome() + " posata");
+		Attrezzo a = null;
+		if (partita.getGiocatore().getBorsa().hasAttrezzo(this.nomeAttrezzo)) {
+			a = partita.getGiocatore().getBorsa().getAttrezzo(this.nomeAttrezzo);
+			partita.getStanzaCorrente().addAttrezzo(a);
+			partita.getGiocatore().getBorsa().removeAttrezzo(this.nomeAttrezzo);
+			io.mostraMessaggio("\n Attrezzo " + this.nomeAttrezzo+ " posata");
 		} else {
 			io.mostraMessaggio("Attrezzo non esistente!");
 		}
@@ -33,7 +33,7 @@ public class ComandoPosa implements Comando {
 
 	@Override
 	public void setParametro(String parametro) {
-		this.attrezzo.setNome(parametro);
+		this.nomeAttrezzo=parametro;
 	}
 	@Override
 	public String getNome() {
@@ -45,7 +45,7 @@ public class ComandoPosa implements Comando {
 	}
 	@Override
 	public String getParametro() {
-		return this.attrezzo.getNome();
+		return this.nomeAttrezzo;
 	}
 
 }
