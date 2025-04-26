@@ -17,7 +17,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class Stanza {
 	
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
-	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
+	public static final int NUMERO_MASSIMO_ATTREZZI = 10;
 	
 	private String nome;
 	
@@ -81,6 +81,10 @@ public class Stanza {
      */
     public String getNome() {
         return this.nome;
+    }
+    
+    public int getNumeroAttrezzi() {
+    	return this.numeroAttrezzi;
     }
 
     /**

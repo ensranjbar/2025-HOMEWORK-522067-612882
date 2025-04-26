@@ -2,7 +2,9 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Borsa;
 
 public class ComandoPosa implements Comando {
 	
@@ -13,22 +15,31 @@ public class ComandoPosa implements Comando {
 	public ComandoPosa(String nomeAttrezzo){
 		this.nomeAttrezzo=nomeAttrezzo;
 	}
-	public ComandoPosa(){
 	
+	public ComandoPosa(){
 	}
+	
 	@Override
 	public void esegui(Partita partita) {
-		Attrezzo a = null;
-		if (partita.getGiocatore().getBorsa().hasAttrezzo(this.nomeAttrezzo)) {
-			a = partita.getGiocatore().getBorsa().getAttrezzo(this.nomeAttrezzo);
-			partita.getStanzaCorrente().addAttrezzo(a);
-			partita.getGiocatore().getBorsa().removeAttrezzo(this.nomeAttrezzo);
+		    Borsa borsa = partita.getGiocatore().getBorsa();
+			Attrezzo a = borsa.getAttrezzo(this.nomeAttrezzo);
+			
+			if(a == null) {
+				io.mostraMessaggio("Attrezzo "+a+" non presente nella borsa");
+				return;
+			}
+			
+			boolean posato = partita.getStanzaCorrente().addAttrezzo(a);
+			
+			if(!posato) {
+				io.mostraMessaggio("Non c'è spazio per nuovi attrezzi");
+				return;
+			}
+			
+			borsa.removeAttrezzo(nomeAttrezzo);
 			io.mostraMessaggio("\n Attrezzo " + this.nomeAttrezzo+ " posata");
-		} else {
-			io.mostraMessaggio("Attrezzo non esistente!");
-		}
-		io.mostraMessaggio(partita.toString());
-
+			
+		
 	}
 
 	@Override

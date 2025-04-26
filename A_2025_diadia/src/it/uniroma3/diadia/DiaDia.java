@@ -99,79 +99,11 @@ public class DiaDia {
 		return false;
 	}
 
-	// implementazioni dei comandi dell'utente:
 
-	/**
-	 * Stampa informazioni di aiuto.
-	 */
-	/*
-	 * private void aiuto() { for (int i = 0; i < elencoComandi.length; i++)
-	 * System.out.print(elencoComandi[i] + " "); System.out.println(); }
-	 */
-
-	/**
-	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra e ne stampa il
-	 * nome, altrimenti stampa un messaggio di errore
-	 */
-	
-	/*private void vai(String direzione) {
-		if (direzione == null)
-			io.mostraMessaggio("Dove vuoi andare ?");
-		Stanza prossimaStanza = null;
-
-		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-		if (prossimaStanza == null)
-			io.mostraMessaggio("Direzione inesistente");
-		else {
-			this.partita.setStanzaCorrente(prossimaStanza);
-			int cfu = this.partita.getCfu();
-			this.partita.setCfu(cfu - 1);
-		}
-		io.mostraMessaggio(this.partita.toString());
-
-	}*/
-
-	/**
-	 * Comando "Fine".
-	 */
-	/*
-	private void fine() {
-		io.mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
-	}
-*/
 	public static void main(String[] argc) {
 		IOConsole io = new IOConsole();
 		DiaDia gioco = new DiaDia(io);
 		gioco.gioca();
 	}
-/*
-	public void posa(String nomeAttrezzo) {
-		Attrezzo a = null;
-		if (this.partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
-			a = this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
-			this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			this.partita.getStanzaCorrente().addAttrezzo(a);
-			io.mostraMessaggio("\n Attrezzo " + nomeAttrezzo + " posata");
-		} else {
-			io.mostraMessaggio("Attrezzo non esistente!");
-		}
-		io.mostraMessaggio(this.partita.toString());
-	}
 
-	public void prendi(String nomeAttrezzo) {
-		Attrezzo a = null;
-
-		if (this.partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
-			a = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-
-			this.partita.getGiocatore().getBorsa().addAttrezzo(a);
-			this.partita.getStanzaCorrente().removeAttrezzo(a);
-			io.mostraMessaggio("\n Attrezzo " + nomeAttrezzo + " preso");
-
-		} else {
-			io.mostraMessaggio("Attrezzo non esistente!");
-		}
-		io.mostraMessaggio(this.partita.toString());
-	}
-*/
 }
