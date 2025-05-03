@@ -26,7 +26,7 @@ public class ComandoPosa implements Comando {
 			Attrezzo a = borsa.getAttrezzo(this.nomeAttrezzo);
 			
 			if(a == null) {
-				io.mostraMessaggio("Attrezzo "+a+" non presente nella borsa");
+				io.mostraMessaggio("Attrezzo "+this.nomeAttrezzo+" non presente nella borsa");
 				return;
 			}
 			

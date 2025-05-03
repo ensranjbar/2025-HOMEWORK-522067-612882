@@ -1,10 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoAiuto implements Comando {
-	private IOConsole io;
+	private IO io;
 	private static final String NOME = "aiuto";
 	static final private String[] elencoComandi = { "vai", "aiuto", "fine", "posa", "prendi","guarda" };
 	@Override
@@ -30,7 +31,7 @@ public class ComandoAiuto implements Comando {
 	}
 
 	@Override
-	public void setIo(IOConsole io) {
+	public void setIo(IO io) {
 		this.io = io;
 		
 	}

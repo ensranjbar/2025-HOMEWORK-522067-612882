@@ -1,10 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido implements Comando {
-	private IOConsole io;
+	private IO io;
 	private static final String NOME = "non_valido";
 
 	@Override
@@ -24,7 +25,7 @@ public class ComandoNonValido implements Comando {
 	}
 
 	@Override
-	public void setIo(IOConsole io) {
+	public void setIo(IO io) {
 	this.io = io;
 	}
 
