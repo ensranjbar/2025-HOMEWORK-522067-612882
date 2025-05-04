@@ -2,12 +2,11 @@ package it.uniroma3.diadia.ambienti;
 
 public class StanzaBuia extends Stanza {
 	
-	private static final String MESSAGGIO_STANZA_BUIA = "Qui c'Ã¨ un buio pesto!";
+	public static final String MESSAGGIO_STANZA_BUIA = "Qui c'èc un buio pesto!";
 	private String nomeAttrezzo;
 
-	public StanzaBuia(String nome, String nomeattrezzo) {
+	public StanzaBuia(String nome, String nomeAttrezzo) {
 		super(nome);
-		// TODO Auto-generated constructor stub
 		this.nomeAttrezzo = nomeAttrezzo;
 	}
 	
