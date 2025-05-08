@@ -7,7 +7,7 @@ import it.uniroma3.diadia.Partita;
 public class ComandoAiuto implements Comando {
 	private IO io;
 	private static final String NOME = "aiuto";
-	static final private String[] elencoComandi = { "vai", "aiuto", "fine", "posa", "prendi","guarda" };
+	public static final String[] elencoComandi = { "vai", "aiuto", "fine", "posa", "prendi","guarda" };
 	@Override
 	public void esegui(Partita partita) {
 		for (int i = 0; i < elencoComandi.length; i++)

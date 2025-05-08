@@ -9,6 +9,7 @@ import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.ComandoFine;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 /**
@@ -24,7 +25,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia {
 
-	static final private String MESSAGGIO_BENVENUTO = ""
+	public static final String MESSAGGIO_BENVENUTO = ""
 			+ "Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n"
 			+ "Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"
 			+ "I locali sono popolati da strani personaggi, " + "alcuni amici, altri... chissa!\n"
@@ -63,44 +64,49 @@ public class DiaDia {
 	 *         altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-	/*	Comando comandoDaEseguire = new Comando(istruzione);
-
-		if (comandoDaEseguire.getNome() == null) {
-			return false;
-		}
-
-		if (comandoDaEseguire.getNome().equals("fine")) {
-			this.fine();
-			return true;
-		} else if (comandoDaEseguire.getNome().equals("vai"))
-			this.vai(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("aiuto"))
-			this.aiuto();
-		else if (comandoDaEseguire.getNome().equals("posa"))
-			this.posa(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("prendi"))
-			this.prendi(comandoDaEseguire.getParametro());
-		else
-			io.mostraMessaggio("Comando sconosciuto");
-			
-			*/
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-		comandoDaEseguire = factory.costruisciComando(istruzione,io);
-		comandoDaEseguire.esegui(this.partita);
-		
-		if (this.partita.isFinita()) {
-
-			if (this.partita.vinta()) {
-				io.mostraMessaggio("Hai vinto!");
-				return true;
+		/*	Comando comandoDaEseguire = new Comando(istruzione);
+	 
+			if (comandoDaEseguire.getNome() == null) {
+				return false;
 			}
-			io.mostraMessaggio("Hai perso! Hai finito i cfu");
-
-			return true;
+	 
+			if (comandoDaEseguire.getNome().equals("fine")) {
+				this.fine();
+				return true;
+			} else if (comandoDaEseguire.getNome().equals("vai"))
+				this.vai(comandoDaEseguire.getParametro());
+			else if (comandoDaEseguire.getNome().equals("aiuto"))
+				this.aiuto();
+			else if (comandoDaEseguire.getNome().equals("posa"))
+				this.posa(comandoDaEseguire.getParametro());
+			else if (comandoDaEseguire.getNome().equals("prendi"))
+				this.prendi(comandoDaEseguire.getParametro());
+			else
+				io.mostraMessaggio("Comando sconosciuto");
+				*/
+			Comando comandoDaEseguire;
+			FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
+			comandoDaEseguire = factory.costruisciComando(istruzione,io);
+			comandoDaEseguire.esegui(this.partita);
+			if (this.partita.isFinita()) {
+	 
+				if (this.partita.vinta()) {
+					io.mostraMessaggio("Hai vinto!");
+					return true;
+				}
+				else {
+				if(this.partita.getGiocatore().getCfu()==0) {
+					io.mostraMessaggio("Hai perso! Hai finito i cfu");
+					return true;
+				}
+				else {
+					io.mostraMessaggio(ComandoFine.MESSAGGIO_FINE);
+					return true;
+				}
+				}
+			}
+			else  return false;
 		}
-		return false;
-	}
 
 
 	public static void main(String[] argc) {
