@@ -1,3 +1,6 @@
+
+//COMMENTO RELEASE 6
+
 package it.uniroma3.diadia;
 
 import java.util.Scanner;
