@@ -3,7 +3,11 @@ package it.uniroma3.diadia.giocatore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -95,13 +99,38 @@ public class Borsa {
 		return this.attrezzi;
 	}
 
+	//Interno
+		public  List<Attrezzo> getContenutoOrdinatoPerNome(){
+			final List<Attrezzo> listaOrdinata=new ArrayList<>(this.getAttrezzi());
+			Collections.sort(listaOrdinata);
+			return listaOrdinata;
+		}
+		
 	//interno
-	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
+	public SortedSet<Attrezzo> getContenutoOrdinatoNome(){
 		return new TreeSet<>(this.getAttrezzi()) ;
 	}
 
 	public Integer getNumeroAttrezzi() {
 	return this.attrezzi.size();
+	}
+	
+	public Map<Integer, Set<Attrezzo>> getContenutoRagruppatoPerPeso(){
+		
+		final Map<Integer, Set<Attrezzo>> peso2Attrezzi=new HashMap<>();
+		for(Attrezzo attrezzo :attrezzi) {
+			int peso = attrezzo.getPeso();//refacotor su peso-->local variable
+			Set<Attrezzo> attrezziStessoPeso=peso2Attrezzi.get(peso);
+			if(attrezziStessoPeso!=null)
+				attrezziStessoPeso.add(attrezzo);
+			else {
+				attrezziStessoPeso=new HashSet<>();
+				attrezziStessoPeso.add(attrezzo);
+				peso2Attrezzi.put(peso, attrezziStessoPeso);
+			}
+				
+		}
+		return peso2Attrezzi;
 	}
 
 }
