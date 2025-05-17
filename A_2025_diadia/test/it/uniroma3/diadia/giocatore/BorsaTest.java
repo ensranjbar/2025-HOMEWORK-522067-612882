@@ -19,7 +19,7 @@ class BorsaTest {
 	void setUp() throws Exception {
 		this.vuota=new Borsa();
 		this.piuma=new Attrezzo("piuma", 1);
-		this.martello=new Attrezzo("martello", 10);
+		this.martello=new Attrezzo("martello", 9);
 		this.piena=new Borsa();
 		this.martelletto=new Attrezzo("martello", 2);
 
@@ -34,8 +34,7 @@ class BorsaTest {
 	void testBorsa2Attrezzi() {
 		vuota.addAttrezzo(piuma);
 		vuota.addAttrezzo(martello);
-		
-		assertEquals(11, vuota.getPeso());
+		assertEquals(10, vuota.getPeso());
 	}
 	
 	@Test
@@ -45,8 +44,8 @@ class BorsaTest {
 		assertEquals(1, piena.getNumeroAttrezzi());
 		assertEquals(1, piena.getContenutoOrdinatoNome().size());
 		piena.addAttrezzo(martelletto);
-		assertEquals(2, piena.getNumeroAttrezzi());
-    	assertEquals(2, piena.getContenutoOrdinatoNome().size()); 
+		assertEquals(1, piena.getNumeroAttrezzi());
+    	assertEquals(1, piena.getContenutoOrdinatoNome().size()); 
 		//treeset ha un svantaggio perche in sorted dobbiamo for
 		//forzare ordinamento totale allora in comparto in attrezzo
 	} 

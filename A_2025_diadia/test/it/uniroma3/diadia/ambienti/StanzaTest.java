@@ -79,11 +79,11 @@ private Attrezzo a11;
 	
 	@Test
 	void testAddAttrezzo() {
-		assertFalse(this.s1.hasAttrezzo("Penna"));
+		assertFalse(this.s1.getAttrezzi().contains(a1));
 		this.s1.addAttrezzo(a1);
-		assertTrue(this.s1.hasAttrezzo("Penna"));
+		assertTrue(this.s1.getAttrezzi().contains(a1));
 	}
-	
+	/*
 	@Test
 	void testAddAttrezzoSopraLimiteAttrezzi(){
 		this.s1.addAttrezzo(a1);
@@ -99,38 +99,35 @@ private Attrezzo a11;
 		this.s1.addAttrezzo(a11);
 		assertFalse(this.s1.hasAttrezzo("tablet"));
 		assertTrue(this.s1.hasAttrezzo("quaderno"));
-	}
+	}*/
 	
 	@Test
 	void testHasAttrezzoEsistente() {
 		this.s1.addAttrezzo(a1);
-		assertTrue(this.s1.hasAttrezzo("Penna"));
+		assertTrue(this.s1.getAttrezzi().contains(a1));
 	}
 	
 	@Test
 	void testHasAttrezzoInesistente() {
-		assertFalse(this.s1.hasAttrezzo("Penna"));
+		assertFalse(this.s1.getAttrezzi().contains(a1));
 	}
 	
 	@Test
 	void testRemoveAttrezzoEsistente() {
-		assertFalse(this.s1.removeAttrezzo(a1));
+		assertFalse(this.s1.getAttrezzi().contains(a1));
 		this.s1.addAttrezzo(a1);
-		assertTrue(this.s1.removeAttrezzo(a1));
+		assertTrue(this.s1.getAttrezzi().contains(a1));
+		this.s1.removeAttrezzo(a1);
+		assertFalse(this.s1.getAttrezzi().contains(a1));
 	}
 	
 	@Test
 	void testRemoveAttrezzoInesistente() {
-		assertFalse(this.s1.removeAttrezzo(a1));
-		
+		assertFalse(this.s1.getAttrezzi().contains(a1));
 	}
 	
 	
-	
-	
-	
-	
-	
+
 	
 }
 

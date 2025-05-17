@@ -23,7 +23,7 @@ public class ComandoPosa implements Comando {
 	@Override
 	public void esegui(Partita partita) {
 		    Borsa borsa = partita.getGiocatore().getBorsa();
-			Attrezzo a = borsa.getAttrezzo(this.nomeAttrezzo);
+			Attrezzo a = borsa.getMappaAttrezzi().get(this.nomeAttrezzo);
 			
 			if(a == null) {
 				io.mostraMessaggio("Attrezzo "+this.nomeAttrezzo+" non presente nella borsa");
@@ -37,7 +37,7 @@ public class ComandoPosa implements Comando {
 				return;
 			}
 			
-			borsa.removeAttrezzo(nomeAttrezzo);
+			borsa.getMappaAttrezzi().remove(nomeAttrezzo);
 			io.mostraMessaggio("\n Attrezzo " + this.nomeAttrezzo+ " posata");
 			
 		

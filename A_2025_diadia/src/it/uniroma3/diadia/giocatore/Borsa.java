@@ -15,7 +15,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
-	private List<Attrezzo> attrezzi;
+	private Map<String,Attrezzo> attrezzi;
 	private int pesoMax;
 
 	public Borsa() {
@@ -24,12 +24,22 @@ public class Borsa {
 
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
-		this.attrezzi = new ArrayList<>();// speriamo bastino...
+		this.attrezzi =new HashMap<String, Attrezzo>();
 
 	}
-
+public Map<String,Attrezzo> getMappaAttrezzi(){
+	return attrezzi;
+}
 	public boolean addAttrezzo(Attrezzo attrezzo) {
-		return this.attrezzi.add(attrezzo);
+		
+		if(attrezzo==null)return false ;
+		if(this.getPeso()+attrezzo.getPeso()>DEFAULT_PESO_MAX_BORSA) {
+			return false ;
+		}
+		 
+		this.attrezzi.put(attrezzo.getNome(), attrezzo);
+		return true;
+		
 	}
 
 	public int getPesoMax() {
@@ -46,7 +56,8 @@ public class Borsa {
 
 	public int getPeso() {
 		int pesoTotale = 0;
-		for (Attrezzo attrezzo : attrezzi) {
+		
+		for (Attrezzo attrezzo : attrezzi.values()) {
 			pesoTotale += attrezzo.getPeso();
 		}
 		return pesoTotale;
@@ -95,8 +106,8 @@ public class Borsa {
 		return listaOrdinata;
 	}
 
-	private List<Attrezzo> getAttrezzi() {
-		return this.attrezzi;
+	public Set<Attrezzo> getAttrezzi() {
+		return  new HashSet<Attrezzo>(this.attrezzi.values());
 	}
 
 	//Interno
@@ -118,7 +129,7 @@ public class Borsa {
 	public Map<Integer, Set<Attrezzo>> getContenutoRagruppatoPerPeso(){
 		
 		final Map<Integer, Set<Attrezzo>> peso2Attrezzi=new HashMap<>();
-		for(Attrezzo attrezzo :attrezzi) {
+		for(Attrezzo attrezzo :attrezzi.values()) {
 			int peso = attrezzo.getPeso();//refacotor su peso-->local variable
 			Set<Attrezzo> attrezziStessoPeso=peso2Attrezzi.get(peso);
 			if(attrezziStessoPeso!=null)

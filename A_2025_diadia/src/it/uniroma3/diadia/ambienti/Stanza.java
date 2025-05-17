@@ -1,9 +1,12 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -17,13 +20,14 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * @version base
  */
 
-/*DOBBIAMO USARE MAPPE PER ATTREZZI PERCHE' I NOMI DEGLI ATTREZZI
- * DONO UNIVOCI GLOBALMENTE NEL LABIRINTO, NON SOLO NELLA STANZA 
- * O NELLA BORSA. VA GESTITO NEL COSTRUTTORE DI LABIRINTO.
+/*
+ * DOBBIAMO USARE MAPPE PER ATTREZZI PERCHE' I NOMI DEGLI ATTREZZI DONO UNIVOCI
+ * GLOBALMENTE NEL LABIRINTO, NON SOLO NELLA STANZA O NELLA BORSA. VA GESTITO
+ * NEL COSTRUTTORE DI LABIRINTO.
  * 
  * 
  * 
- * */
+ */
 
 public class Stanza {
 
@@ -33,10 +37,9 @@ public class Stanza {
 
 	private List<Attrezzo> attrezzi;
 
-	private List<Stanza> stanzeAdiacenti;
+	private Map<String, Stanza> stanzeAdiacenti;
 
-
-	private List<String> direzioni;
+	// private List<String> direzioni;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -45,9 +48,9 @@ public class Stanza {
 	 */
 	public Stanza(String nome) {
 		this.nome = nome;
-		
-		this.direzioni = new ArrayList<>();
-		this.stanzeAdiacenti = new ArrayList<>();
+
+		// this.direzioni = new ArrayList<>();
+		this.stanzeAdiacenti = new HashMap<String, Stanza>();
 		this.attrezzi = new ArrayList<>();
 	}
 
@@ -59,24 +62,23 @@ public class Stanza {
 	 *                  parametro.
 	 */
 	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-		boolean aggiornato = false;
-
-		//QUANDO ABBIAMO 2 LISTE PARALLELIZZATE
 		
-		for(int i=0; i<this.direzioni.size(); i++){
-			
-			if (Objects.equals(this.direzioni.get(i), direzione)) {
-				this.stanzeAdiacenti.set(i, stanza);
-				aggiornato = true;
-				break;
-			}
-		}
-		
-		
-			if (!aggiornato && this.stanzeAdiacenti.size() < NUMERO_MASSIMO_DIREZIONI) {
-				this.direzioni.add(direzione);
-				this.stanzeAdiacenti.add(stanza);
-			}
+		if(direzione!=null)
+		this.stanzeAdiacenti.put(direzione, stanza);
+		/*
+		 * boolean aggiornato = false;
+		 * 
+		 * //QUANDO ABBIAMO 2 LISTE PARALLELIZZATE
+		 * 
+		 * for(int i=0; i<this.direzioni.size(); i++){
+		 * 
+		 * if (Objects.equals(this.direzioni.get(i), direzione)) {
+		 * this.stanzeAdiacenti.set(i, stanza); aggiornato = true; break; } }
+		 * 
+		 * 
+		 * if (!aggiornato && this.stanzeAdiacenti.size() < NUMERO_MASSIMO_DIREZIONI) {
+		 * this.direzioni.add(direzione); this.stanzeAdiacenti.add(stanza); }
+		 */
 	}
 
 	/**
@@ -85,11 +87,12 @@ public class Stanza {
 	 * @param direzione
 	 */
 	public Stanza getStanzaAdiacente(String direzione) {
-		Stanza stanza = null;
-		for (int i = 0; i < this.stanzeAdiacenti.size(); i++)
-			if (this.direzioni.get(i).equals(direzione))
-				stanza = this.stanzeAdiacenti.get(i);
-		return stanza;
+		return this.stanzeAdiacenti.get(direzione);
+		/*
+		 * Stanza stanza = null; for (int i = 0; i < this.stanzeAdiacenti.size(); i++)
+		 * if (this.direzioni.get(i).equals(direzione)) stanza =
+		 * this.stanzeAdiacenti.get(i); return stanza;
+		 */
 	}
 
 	/**
@@ -145,9 +148,15 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.direzioni)
-			if (direzione != null)
-				risultato.append(" " + direzione);
+		for (String direzione : stanzeAdiacenti.keySet()) {
+			if(direzione!=null)
+			risultato.append(direzione).append("");
+		}
+		/*
+		 * for (String direzione : this.direzioni) if (direzione != null)
+		 * risultato.append(" " + direzione);
+		 * 
+		 */
 		risultato.append("\nAttrezzi nella stanza: ");
 
 		Iterator<Attrezzo> it = this.attrezzi.iterator();
@@ -165,7 +174,8 @@ public class Stanza {
 	 * 
 	 * @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	 */
-	public boolean hasAttrezzo(String nomeAttrezzo) {
+	//abbaimo commentato perchè possiamo utilizzare metodi esistenti nei collezioni
+	/*public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
 
@@ -177,7 +187,7 @@ public class Stanza {
 				trovato = true;
 		}
 		return trovato;
-	}
+	}*/
 
 	/**
 	 * Restituisce l'attrezzo nomeAttrezzo se presente nella stanza.
@@ -214,7 +224,8 @@ public class Stanza {
 
 			Attrezzo attrezzo = it.next();
 			if (attrezzo == wanted) {
-				return this.attrezzi.remove(attrezzo);
+				 it.remove();
+				 return true;
 			}
 
 		}
@@ -222,11 +233,8 @@ public class Stanza {
 
 	}
 
-	public List<String> getDirezioni() {
-		List<String> dir = new ArrayList<>();
-		for (int i = 0; i < this.stanzeAdiacenti.size(); i++)
-			dir.set(i,this.direzioni.get(i));
-		return dir;
+	public Set<String> getDirezioni() {
+		return this.stanzeAdiacenti.keySet();
 	}
 
 }
