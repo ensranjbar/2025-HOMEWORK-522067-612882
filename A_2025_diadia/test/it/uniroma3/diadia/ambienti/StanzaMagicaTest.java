@@ -29,7 +29,8 @@ class StanzaMagicaTest {
 		}
 		
 		sm.addAttrezzo(a);
-		assertTrue(sm.hasAttrezzo("tta"));
+//		assertTrue(sm.getAttrezzi.contains(a));
+		assertEquals("tta",sm.getAttrezzo("tta").getNome());
 		assertEquals(2,sm.getAttrezzo("tta").getPeso());
 	}
 	
@@ -40,7 +41,7 @@ class StanzaMagicaTest {
 		}
 		
 		sm2.addAttrezzo(a);
-		assertTrue(sm2.hasAttrezzo("att"));
+		assertEquals("att",sm2.getAttrezzo("att").getNome());
 		assertEquals(1,sm2.getAttrezzo("att").getPeso());
 	}
 

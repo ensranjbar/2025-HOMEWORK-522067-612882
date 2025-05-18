@@ -39,14 +39,14 @@ class ComandoPrendiTest {
 	void testComandoPrendiEseguiAttrezzoPresente() {
 		partita.setStanzaCorrente(s);
 		comandoPrendi.esegui(partita);
-		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo("attrezzo_1"));
+		assertTrue(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey("attrezzo_1"));
 		
 	}
 	@Test
 	void testComandoPrendiEseguiAttrezzoInesistente() {
 	//	partita.setStanzaCorrente(s);
 		comandoPrendi.esegui(partita);
-		assertFalse(partita.getGiocatore().getBorsa().hasAttrezzo("attrezzo_1"));
+		assertFalse(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey("attrezzo_1"));
 	}
 	
 	
@@ -54,9 +54,9 @@ class ComandoPrendiTest {
 	void testComandoPrendiEseguiBorsaPiena() {
 		partita.setStanzaCorrente(s);
 		comandoPrendi.esegui(partita);
-		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo("attrezzo_1"));
+		assertTrue(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey("attrezzo_1"));
 		comandoPrendi2.esegui(partita);
-		assertFalse(partita.getGiocatore().getBorsa().hasAttrezzo("attrezzo_2"),"commento:Borsa piena");
+		assertFalse(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey("attrezzo_2"),"commento:Borsa piena");
 	}
 
 }

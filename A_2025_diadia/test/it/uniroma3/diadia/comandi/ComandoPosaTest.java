@@ -18,6 +18,8 @@ class ComandoPosaTest {
 	 private ComandoPosa comandoPosa;
 	 private Partita partita;
 	 private IOConsole io;
+	 
+	 Attrezzo attrezzoNuovo;
 	@BeforeEach
 	void setUp() throws Exception {
 		
@@ -28,7 +30,7 @@ class ComandoPosaTest {
 		this.io=new IOConsole();
 		comandoPosa.setIo(io);
 		
-		Attrezzo attrezzoNuovo = new Attrezzo(ATTREZZO_DA_POSARE,1);
+		attrezzoNuovo = new Attrezzo(ATTREZZO_DA_POSARE,1);
 		borsa.addAttrezzo(attrezzoNuovo);
 	}
 
@@ -36,8 +38,9 @@ class ComandoPosaTest {
 	void testComandoPosaEseguiAttrezzoPresente() {
 		comandoPosa.setParametro(ATTREZZO_DA_POSARE);
 		comandoPosa.esegui(partita);
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo(ATTREZZO_DA_POSARE));
-		assertFalse(partita.getGiocatore().getBorsa().hasAttrezzo(ATTREZZO_DA_POSARE));
+	
+		assertEquals(attrezzoNuovo, partita.getStanzaCorrente().getAttrezzo(ATTREZZO_DA_POSARE));
+		assertFalse(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey(ATTREZZO_DA_POSARE));
 		
 	}
 	@Test
@@ -45,25 +48,25 @@ class ComandoPosaTest {
         String nomeNonPresente = "attrezzoNonPresente";
         this.comandoPosa.setParametro(nomeNonPresente);
 		comandoPosa.esegui(partita);
-		assertFalse(partita.getStanzaCorrente().hasAttrezzo(nomeNonPresente));
-		assertFalse(partita.getStanzaCorrente().hasAttrezzo(ATTREZZO_DA_POSARE));
-		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo(ATTREZZO_DA_POSARE));
+		assertNull(partita.getStanzaCorrente().getAttrezzo(nomeNonPresente));
+		assertNull(partita.getStanzaCorrente().getAttrezzo(ATTREZZO_DA_POSARE));
+		assertTrue(partita.getGiocatore().getBorsa().getMappaAttrezzi().containsKey(ATTREZZO_DA_POSARE));
 	}
 	
-	
-	@Test
-	void testComandoPosaEseguiStanzaPiena() {
-		
-		Stanza stanzaCorrente = partita.getStanzaCorrente();
-		
-		for(int i = 0; i < Stanza.NUMERO_MASSIMO_ATTREZZI; i++) {
-			stanzaCorrente.addAttrezzo(new Attrezzo("attrezzo"+i,1));
-		}
-		this.comandoPosa.setParametro(ATTREZZO_DA_POSARE);
-	
-		this.comandoPosa.esegui(partita);
-		assertFalse(stanzaCorrente.hasAttrezzo(ATTREZZO_DA_POSARE),"commento:Borsa piena");
-//		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo(ATTREZZO_DA_POSARE));
-
-	}
+	//E' stato commentato dopo aver tolto il limite oggetti nella stanza
+//	@Test
+//	void testComandoPosaEseguiStanzaPiena() {
+//		
+//		Stanza stanzaCorrente = partita.getStanzaCorrente();
+//		
+//		for(int i = 0; i < Stanza.NUMERO_MASSIMO_ATTREZZI; i++) {
+//			stanzaCorrente.addAttrezzo(new Attrezzo("attrezzo"+i,1));
+//		}
+//		this.comandoPosa.setParametro(ATTREZZO_DA_POSARE);
+//	
+//		this.comandoPosa.esegui(partita);
+//		assertFalse(stanzaCorrente.hasAttrezzo(ATTREZZO_DA_POSARE),"commento:Borsa piena");
+////		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo(ATTREZZO_DA_POSARE));
+//
+//	}
 }

@@ -150,7 +150,7 @@ public class Stanza {
 		risultato.append("\nUscite: ");
 		for (String direzione : stanzeAdiacenti.keySet()) {
 			if(direzione!=null)
-			risultato.append(direzione).append("");
+			risultato.append(direzione).append(" ");
 		}
 		/*
 		 * for (String direzione : this.direzioni) if (direzione != null)
@@ -174,7 +174,7 @@ public class Stanza {
 	 * 
 	 * @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	 */
-	//abbaimo commentato perchè possiamo utilizzare metodi esistenti nei collezioni
+	//abbaimo commentato perchï¿½ possiamo utilizzare metodi esistenti nei collezioni
 	/*public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;

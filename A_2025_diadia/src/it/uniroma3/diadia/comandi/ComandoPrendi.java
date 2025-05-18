@@ -18,11 +18,16 @@ public class ComandoPrendi implements Comando {
 	}
 	@Override
 	public void esegui(Partita partita) {
-		Attrezzo a = null;
-
-		if (partita.getStanzaCorrente().hasAttrezzo(this.nomeAttrezzo)) {
-			a = partita.getStanzaCorrente().getAttrezzo(this.nomeAttrezzo);
-
+		
+		if(this.nomeAttrezzo==null) {
+			io.mostraMessaggio("Specifica l'attrezzo da prendere! \n");
+			return;
+		}
+		
+		Attrezzo a = partita.getStanzaCorrente().getAttrezzo(this.nomeAttrezzo);
+		
+		if (a!=null){
+		
 			partita.getGiocatore().getBorsa().addAttrezzo(a);
 			partita.getStanzaCorrente().removeAttrezzo(a);
 			io.mostraMessaggio("\n Attrezzo " + this.nomeAttrezzo + " preso");

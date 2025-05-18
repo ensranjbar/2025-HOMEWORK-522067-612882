@@ -14,6 +14,7 @@ class BorsaTest {
 	private Attrezzo martello;
 	private Borsa piena;
 	private Attrezzo martelletto;
+	private Attrezzo puma;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -22,6 +23,7 @@ class BorsaTest {
 		this.martello=new Attrezzo("martello", 9);
 		this.piena=new Borsa();
 		this.martelletto=new Attrezzo("martello", 2);
+		this.puma=new Attrezzo("puma", 1);
 
 	}
 	
@@ -49,6 +51,47 @@ class BorsaTest {
 		//treeset ha un svantaggio perche in sorted dobbiamo for
 		//forzare ordinamento totale allora in comparto in attrezzo
 	} 
+	
+	//Caso1: mappa pesi distinti nomi distinti
+	//Caso2: mappa nomi uguali per pesi distinti
+	//!Caso3: mappa pesi uguali per nomi distinti
+	
+	@Test
+	void testGetContenutoRaggruppatoPerPeso_Mappa_PesiDistinti_NomiDistinti() {
+		piena.addAttrezzo(martello);
+		piena.addAttrezzo(piuma);
+		
+		assertEquals(2,piena.getNumeroAttrezzi());
+		assertEquals(2,piena.getContenutoRagruppatoPerPeso().size());
+	}
+	
+	
+	/*Per come abbiamo gestito gli attrezzi nella borsa per mappa come NomeAttrezzo chiave
+	 * e Attrezzo valore, allora aggiungendo due attrezzi con stesso nome è un errore,
+	 * perché la chiave è univoca. Ma per noi è importante avere 2 attrezzi con nomi uguali
+	 * e pesi diversi?
+	 * 
+	 * Dobbiamo cambiare attrezzi tramite lista invece che con la mappa?
+	 * */
+	@Test
+	void testGetContenutoRaggruppatoPerPeso_Mappa_PesiDistinti_NomiUguali() {
+		piena.addAttrezzo(martello);
+		piena.addAttrezzo(martelletto);
+		
+//		assertEquals(1,piena.getNumeroAttrezzi());
+		assertEquals(1,piena.getContenutoRagruppatoPerPeso().size());
+	}
+	
+	@Test
+	void testGetContenutoSortedSetOrdinatoPerPeso_stessoPeso_nomiDiversi() {
+		piena.addAttrezzo(piuma);
+		assertEquals(1, piena.getNumeroAttrezzi());
+		assertEquals(1, piena.getSortedSetOrdinatoPerPeso().size());
+		piena.addAttrezzo(puma);
+		assertEquals(2, piena.getNumeroAttrezzi());
+		assertEquals(2, piena.getSortedSetOrdinatoPerPeso().size());
+
+	}
 	
 //
 //	private Borsa borsa;

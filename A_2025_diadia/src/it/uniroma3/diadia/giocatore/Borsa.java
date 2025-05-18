@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -84,19 +85,25 @@ public Map<String,Attrezzo> getMappaAttrezzi(){
 //		return a;
 //	}
 
-//	public String toString() {
-//		StringBuilder s = new StringBuilder();
-//
-//		if (!this.isEmpty()) {
-//			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-//			for (Attrezzo attrezzo:attrezzi)
-//				s.append(attrezzi.toString()+" ");
-//		}
-//		else
-//			s.append("Borsa vuota");
-//		return s.toString();
-//	}
-//
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+
+		if (!this.attrezzi.isEmpty()) {
+			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
+			
+			Iterator<Attrezzo> it =  this.getAttrezzi().iterator();
+			
+			while (it.hasNext()) {
+				Attrezzo a = it.next();
+				s.append(a.toString()+" ");
+			}
+				
+		}
+		else
+			s.append("Borsa vuota");
+		return s.toString();
+	}
+
 
 	// esterno
 	public List<Attrezzo> getContenutoOrdinatoPerPeso() {
@@ -105,13 +112,20 @@ public Map<String,Attrezzo> getMappaAttrezzi(){
 		// ensi: listaOrdinata.sort(new ComparatorePerPeso());
 		return listaOrdinata;
 	}
+	
+	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
+		ComparatorePerPeso comp = new ComparatorePerPeso();
+		SortedSet<Attrezzo> sortOrdinata = new TreeSet<>(comp);
+		sortOrdinata.addAll(this.getAttrezzi());
+		return sortOrdinata;
+	}
 
 	public Set<Attrezzo> getAttrezzi() {
 		return  new HashSet<Attrezzo>(this.attrezzi.values());
 	}
 
 	//Interno
-		public  List<Attrezzo> getContenutoOrdinatoPerNome(){
+		public List<Attrezzo> getContenutoOrdinatoPerNome(){
 			final List<Attrezzo> listaOrdinata=new ArrayList<>(this.getAttrezzi());
 			Collections.sort(listaOrdinata);
 			return listaOrdinata;
