@@ -17,18 +17,33 @@ public class Partita {
 
 	private boolean finita;
 	private Labirinto labirinto;
+
 	private Stanza stanzaCorrente;
 	private Giocatore giocatore;
 	
+	public Partita(Labirinto labirinto) {
+		 this.labirinto =labirinto;
+			this.stanzaCorrente = this.labirinto.getStanzaIniziale();
+			this.finita = false;
+			this.giocatore = new Giocatore();
+	 }
+
 	public Partita(){	
 		this.labirinto = new Labirinto();
 		this.stanzaCorrente = this.labirinto.getStanzaIniziale();
 		this.finita = false;
 		this.giocatore = new Giocatore();
 	}
+ 
+    
+	public Labirinto getLabirinto() {
+		return labirinto;
+	}
 
-    
-    
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
+	}
+	
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}

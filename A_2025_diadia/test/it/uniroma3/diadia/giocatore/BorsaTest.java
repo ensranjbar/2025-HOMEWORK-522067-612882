@@ -2,6 +2,12 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,8 +45,14 @@ class BorsaTest {
 		assertEquals(10, vuota.getPeso());
 	}
 	
+	
+	
+	/*****************************************************************************************************************/
+	/*****************************************************************************************************************/
+		/**************************************getContenutoOrdinatoNome*****************************************/
+	
 	@Test
-	void testGetContenutoOrdinatoNome() {
+	void testGetContenutoOrdinatoNome_NomiUguali() {
 		piena.addAttrezzo(martello);
 		//piena.addAttrezzo(martelletto);
 		assertEquals(1, piena.getNumeroAttrezzi());
@@ -51,20 +63,62 @@ class BorsaTest {
 		//treeset ha un svantaggio perche in sorted dobbiamo for
 		//forzare ordinamento totale allora in comparto in attrezzo
 	} 
+
+	@Test
+	void testGetContenutoOrdinatoNome_NomiDistinti() {
+		piena.addAttrezzo(martello);
+		//piena.addAttrezzo(martelletto);
+		assertEquals(1, piena.getNumeroAttrezzi());
+		assertEquals(1, piena.getContenutoOrdinatoNome().size());
+		piena.addAttrezzo(piuma);
+		assertEquals(2, piena.getNumeroAttrezzi());
+    	assertEquals(2, piena.getContenutoOrdinatoNome().size()); 
+		//treeset ha un svantaggio perche in sorted dobbiamo for
+		//forzare ordinamento totale allora in comparto in attrezzo
+	}
+	
+	
+	
+	
 	
 	//Caso1: mappa pesi distinti nomi distinti
 	//Caso2: mappa nomi uguali per pesi distinti
 	//!Caso3: mappa pesi uguali per nomi distinti
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+	/**************************************getContenutoRagruppatoPerPeso*****************************************/
+
+	@Test
+	void testGetContenutoRaggruppatoPerPeso_Mappa_borsa_vuota() {
+		Map<Integer,Set<Attrezzo>> mappa=vuota.getContenutoRagruppatoPerPeso();
+		assertTrue(mappa.isEmpty());
+	}
 	
 	@Test
 	void testGetContenutoRaggruppatoPerPeso_Mappa_PesiDistinti_NomiDistinti() {
 		piena.addAttrezzo(martello);
 		piena.addAttrezzo(piuma);
-		
 		assertEquals(2,piena.getNumeroAttrezzi());
 		assertEquals(2,piena.getContenutoRagruppatoPerPeso().size());
 	}
 	
+	
+	@Test
+	void testGetContenutoRaggruppatoPerPeso_Mappa_Pesiuguali_NomiDistinti() {
+		piena.addAttrezzo(puma);
+		piena.addAttrezzo(piuma);
+		piena.addAttrezzo(martelletto);
+		assertEquals(3,piena.getNumeroAttrezzi());
+		Map<Integer, Set<Attrezzo>> r=piena.getContenutoRagruppatoPerPeso();
+		
+		assertEquals(2,r.size());
+		assertTrue(r.containsKey(1));
+		assertTrue(r.containsKey(2));
+		assertTrue(r.get(1).contains(puma));
+		assertTrue(r.get(1).contains(piuma));
+		assertTrue(r.get(2).contains(martelletto));
+		
+	}
 	
 	/*Per come abbiamo gestito gli attrezzi nella borsa per mappa come NomeAttrezzo chiave
 	 * e Attrezzo valore, allora aggiungendo due attrezzi con stesso nome Ã¨ un errore,
@@ -72,27 +126,60 @@ class BorsaTest {
 	 * e pesi diversi?
 	 * 
 	 * Dobbiamo cambiare attrezzi tramite lista invece che con la mappa?
-	 * */
+	 * --->siamo arrivati a questo punto che meglio avere nomi distinti per attrezzi nel labirinto che la borsa
+	 * per poter prendere e posare correttamente  allora manteniamo attrezzi con la mappa in Borsa  */
 	@Test
 	void testGetContenutoRaggruppatoPerPeso_Mappa_PesiDistinti_NomiUguali() {
-		piena.addAttrezzo(martello);
-		piena.addAttrezzo(martelletto);
-		
+		piena.addAttrezzo(martello);//9
+		piena.addAttrezzo(martelletto);//2
 //		assertEquals(1,piena.getNumeroAttrezzi());
 		assertEquals(1,piena.getContenutoRagruppatoPerPeso().size());
+		
+		 assertTrue(piena.getContenutoRagruppatoPerPeso().containsKey(9));
+	     assertFalse(piena.getContenutoRagruppatoPerPeso().containsKey(2));
+	     assertTrue(piena.getContenutoRagruppatoPerPeso().get(9).contains(martello));
+	     assertNull(piena.getContenutoRagruppatoPerPeso().get(2));
 	}
 	
+	/*****************************************************************************************************************/
+	/*****************************************************************************************************************/
+		/**************************************getSortedSetOrdinatoPerPeso*****************************************/	
+	
+	@Test
+	void testGetContenutoSortedSetOrdinatoPerPeso_BorsaVuota() {
+		SortedSet<Attrezzo> s=vuota.getSortedSetOrdinatoPerPeso();
+		assertTrue(s.isEmpty());
+	}
 	@Test
 	void testGetContenutoSortedSetOrdinatoPerPeso_stessoPeso_nomiDiversi() {
 		piena.addAttrezzo(piuma);
 		assertEquals(1, piena.getNumeroAttrezzi());
-		assertEquals(1, piena.getSortedSetOrdinatoPerPeso().size());
 		piena.addAttrezzo(puma);
 		assertEquals(2, piena.getNumeroAttrezzi());
-		assertEquals(2, piena.getSortedSetOrdinatoPerPeso().size());
-
+		assertEquals(2, piena.getPeso());
+		/* s è uno snapshot statico, non si aggiorna dopo addAttrezzo(puma)
+		Serve ricrearlo dopo l’aggiunta.*/
+		SortedSet<Attrezzo> s=piena.getSortedSetOrdinatoPerPeso();
+		assertTrue(s.contains(puma));
+		assertEquals(2, s.size());
 	}
 	
+	@Test
+	void testGetContenutoSortedSetOrdinatoPerPeso_ordinamentoCorretto() {
+		piena.addAttrezzo(piuma);
+		piena.addAttrezzo(martelletto);
+		piena.addAttrezzo(puma);
+		SortedSet<Attrezzo> s=piena.getSortedSetOrdinatoPerPeso();
+		
+		Iterator <Attrezzo> it= s.iterator();
+		Attrezzo primo=it.next();
+		Attrezzo secondo=it.next();
+		Attrezzo terzo=it.next();
+		assertEquals("piuma",primo.getNome());
+		assertEquals("puma",secondo.getNome());
+		assertEquals("martello",terzo.getNome());
+	}
+
 //
 //	private Borsa borsa;
 //	private Attrezzo attrezzo;

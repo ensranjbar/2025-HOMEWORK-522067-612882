@@ -112,7 +112,7 @@ public Map<String,Attrezzo> getMappaAttrezzi(){
 		// ensi: listaOrdinata.sort(new ComparatorePerPeso());
 		return listaOrdinata;
 	}
-	
+	//si
 	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
 		ComparatorePerPeso comp = new ComparatorePerPeso();
 		SortedSet<Attrezzo> sortOrdinata = new TreeSet<>(comp);
@@ -131,7 +131,7 @@ public Map<String,Attrezzo> getMappaAttrezzi(){
 			return listaOrdinata;
 		}
 		
-	//interno
+	//interno si
 	public SortedSet<Attrezzo> getContenutoOrdinatoNome(){
 		return new TreeSet<>(this.getAttrezzi()) ;
 	}
@@ -140,6 +140,8 @@ public Map<String,Attrezzo> getMappaAttrezzi(){
 	return this.attrezzi.size();
 	}
 	
+	
+	//si
 	public Map<Integer, Set<Attrezzo>> getContenutoRagruppatoPerPeso(){
 		
 		final Map<Integer, Set<Attrezzo>> peso2Attrezzi=new HashMap<>();

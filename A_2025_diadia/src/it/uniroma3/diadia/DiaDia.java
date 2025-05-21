@@ -45,6 +45,12 @@ public class DiaDia {
 		this.io = io;
 	}
 
+	public DiaDia(Labirinto labirinto, IO io) {
+		this.partita = new Partita();
+		this.labirinto=labirinto;
+		this.io=io;
+	}
+	
 	public void gioca() {
 		String istruzione;
 		// Scanner scannerDiLinee;
@@ -108,11 +114,20 @@ public class DiaDia {
 			else  return false;
 		}
 
-
 	public static void main(String[] argc) {
-		IOConsole io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		/* N.B. unica istanza di IOConsole
+		di cui sia ammessa la creazione */
+		IO io = new IOConsole();
+		LabirintoBuilder lb = new LabirintoBuilder();
+		lb.creaStanze();
+		Labirinto labirinto=lb.getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
-	}
+		}
+//	public static void main(String[] argc) {
+//		IOConsole io = new IOConsole();
+//		DiaDia gioco = new DiaDia(io);
+//		gioco.gioca();
+//	}
 
 }
