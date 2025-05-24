@@ -9,23 +9,19 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class LabirintoTest {
 
-	private Labirinto labirinto;
-
+	private LabirintoBuilder lb;
 	private Attrezzo martello;
 	private Attrezzo penna;
 	private Stanza stanza;
-
 	private Attrezzo lanterna;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.labirinto = new Labirinto();
+		this.lb = new LabirintoBuilder();
 		this.martello = new Attrezzo("martello", 1);
 		this.penna = new Attrezzo("penna", 1);
 		// this.lanterna=new Attrezzo("lanterna", 1);
-
 		this.stanza = new Stanza("corrente");
-
 	}
 
 	@Test

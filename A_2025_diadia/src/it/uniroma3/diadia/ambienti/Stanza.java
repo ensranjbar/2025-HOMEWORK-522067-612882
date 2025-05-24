@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Stanza {
 
 	private String nome;
 
-	private List<Attrezzo> attrezzi;
+	private Map<String, Attrezzo> nome2attrezzo;
 
 	private Map<String, Stanza> stanzeAdiacenti;
 
@@ -51,7 +52,7 @@ public class Stanza {
 
 		// this.direzioni = new ArrayList<>();
 		this.stanzeAdiacenti = new HashMap<String, Stanza>();
-		this.attrezzi = new ArrayList<>();
+		this.nome2attrezzo = new HashMap<>();
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class Stanza {
 	}
 
 	public int getNumeroAttrezzi() {
-		return this.attrezzi.size();
+		return this.nome2attrezzo.size();
 	}
 
 	/**
@@ -122,8 +123,8 @@ public class Stanza {
 	 * 
 	 * @return la collezione di attrezzi nella stanza.
 	 */
-	public List<Attrezzo> getAttrezzi() {
-		return this.attrezzi;
+	public Collection<Attrezzo> getAttrezzi() {
+		return this.nome2attrezzo.values();
 	}
 
 	/**
@@ -134,7 +135,12 @@ public class Stanza {
 	 */
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 
-		return this.attrezzi.add(attrezzo);
+		if(attrezzo!=null) {
+			this.nome2attrezzo.put(attrezzo.getNome(), attrezzo);
+			return true;
+		}
+		
+		return false;
 
 	}
 
@@ -148,26 +154,13 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : stanzeAdiacenti.keySet()) {
-			if(direzione!=null)
-			risultato.append(direzione).append(" ");
-		}
-		/*
-		 * for (String direzione : this.direzioni) if (direzione != null)
-		 * risultato.append(" " + direzione);
-		 * 
-		 */
+		risultato.append(this.getDirezioni().toString());
 		risultato.append("\nAttrezzi nella stanza: ");
-
-		Iterator<Attrezzo> it = this.attrezzi.iterator();
-
-		while (it.hasNext()) {
-			Attrezzo attrezzo = it.next();
-			risultato.append(attrezzo.toString()).append(" ");
-		}
-
+		risultato.append(this.getAttrezzi().toString());
 		return risultato.toString();
 	}
+	
+	
 
 	/**
 	 * Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
@@ -175,19 +168,9 @@ public class Stanza {
 	 * @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	 */
 	//abbaimo commentato perch� possiamo utilizzare metodi esistenti nei collezioni
-	/*public boolean hasAttrezzo(String nomeAttrezzo) {
-		boolean trovato;
-		trovato = false;
-
-		Iterator<Attrezzo> it = this.attrezzi.iterator();
-
-		while (it.hasNext()) {
-			Attrezzo attrezzo = it.next();
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				trovato = true;
-		}
-		return trovato;
-	}*/
+	public boolean hasAttrezzo(String nomeAttrezzo) {
+		return this.nome2attrezzo.containsKey(nomeAttrezzo);
+	}
 
 	/**
 	 * Restituisce l'attrezzo nomeAttrezzo se presente nella stanza.
@@ -196,18 +179,7 @@ public class Stanza {
 	 * @return l'attrezzo presente nella stanza. null se l'attrezzo non e' presente.
 	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo attrezzoCercato;
-		attrezzoCercato = null;
-
-		Iterator<Attrezzo> it = this.attrezzi.iterator();
-
-		while (it.hasNext()) {
-
-			Attrezzo attrezzo = it.next();
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzo;
-		}
-		return attrezzoCercato;
+		return this.nome2attrezzo.get(nomeAttrezzo);
 	}
 
 	/**
@@ -217,18 +189,10 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo wanted) {
-
-		Iterator<Attrezzo> it = this.attrezzi.iterator();
-
-		while (it.hasNext()) {
-
-			Attrezzo attrezzo = it.next();
-			if (attrezzo == wanted) {
-				 it.remove();
-				 return true;
-			}
-
+		if(wanted!=null) {
+			this.nome2attrezzo.remove(wanted.getNome(), wanted);
 		}
+		
 		return false;
 
 	}

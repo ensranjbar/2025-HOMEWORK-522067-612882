@@ -37,7 +37,6 @@ public class DiaDia {
 	//static final private String[] elencoComandi = { "vai", "aiuto", "fine", "posa", "prendi" };
 
 	private Partita partita;
-	private Labirinto labirinto;
 	private IO io;
 
 	public DiaDia(IO io) {
@@ -46,8 +45,7 @@ public class DiaDia {
 	}
 
 	public DiaDia(Labirinto labirinto, IO io) {
-		this.partita = new Partita();
-		this.labirinto=labirinto;
+		this.partita = new Partita(labirinto);
 		this.io=io;
 	}
 	
@@ -118,9 +116,11 @@ public class DiaDia {
 		/* N.B. unica istanza di IOConsole
 		di cui sia ammessa la creazione */
 		IO io = new IOConsole();
-		LabirintoBuilder lb = new LabirintoBuilder();
-		lb.creaStanze();
-		Labirinto labirinto=lb.getLabirinto();
+		Labirinto labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("LabCampusOne")
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("LabCampusOne","Biblioteca","ovest")
+				.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
 		}
