@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -30,7 +31,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * 
  */
 
-public class Stanza {
+public class Stanza implements Comparable<Stanza> {
 
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 
@@ -64,7 +65,7 @@ public class Stanza {
 	 */
 	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
 		
-		if(direzione!=null)
+		if(direzione!=null && this.stanzeAdiacenti.size()<NUMERO_MASSIMO_DIREZIONI)
 		this.stanzeAdiacenti.put(direzione, stanza);
 		/*
 		 * boolean aggiornato = false;
@@ -123,8 +124,8 @@ public class Stanza {
 	 * 
 	 * @return la collezione di attrezzi nella stanza.
 	 */
-	public Collection<Attrezzo> getAttrezzi() {
-		return this.nome2attrezzo.values();
+	public Set<Attrezzo> getAttrezzi() {
+		return new TreeSet<Attrezzo>(this.nome2attrezzo.values());
 	}
 
 	/**
@@ -200,5 +201,37 @@ public class Stanza {
 	public Set<String> getDirezioni() {
 		return this.stanzeAdiacenti.keySet();
 	}
+
+	
+	
+	
+	@Override
+	public int hashCode() {
+	return this.getNome().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+	Attrezzo that=(Attrezzo)obj;
+	return this.getNome().equals(that.getNome());
+	}
+
+	public Set<Stanza> getMapStanzeAdiacenti() {
+		// TODO Auto-generated method stub
+		return new TreeSet<Stanza > (this.stanzeAdiacenti.values());
+	}
+
+	@Override
+	public int compareTo(Stanza that) {
+	
+			int cmp=this.getNome().compareTo(that.getNome());
+
+			return cmp;
+		
+			}
+
+
+
+
 
 }

@@ -1,13 +1,13 @@
-package it.uniroma3.diadia;
+package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.ambienti.StanzaBloccata;
-import it.uniroma3.diadia.ambienti.StanzaBuia;
-import it.uniroma3.diadia.ambienti.StanzaMagica;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilder {
@@ -40,6 +40,7 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addAdiacenza(String partenza,String adiacente,String direzione) {
 		Stanza stanzaPartenza = this.nome2stanza.get(partenza);
 		Stanza stanzaAdiacente = this.nome2stanza.get(adiacente);
+		
 		stanzaPartenza.impostaStanzaAdiacente(direzione, stanzaAdiacente);
 		return this;
 	}
@@ -90,6 +91,21 @@ public class LabirintoBuilder {
 	private void aggiungiAMappaEAggiornaUltima(Stanza stanza) {
 		this.ultimaAggiunta = stanza;
 		this.nome2stanza.put(stanza.getNome(), stanza);
+	}
+
+//	public Set<Attrezzo> getListaStanze() {
+//		List <Stanza> stanze=new ArrayList<Stanza>(this.nome2stanza.values());
+//		Set<Attrezzo> attrezzi=new TreeSet<Attrezzo>();
+//	for(Stanza s:stanze) {
+//		attrezzi.addAll(s.getAttrezzi());
+//
+//	}
+//		
+//		return attrezzi;
+//	}
+
+	public Set<Stanza > getListaStanze() {
+		return new TreeSet<Stanza>(this.nome2stanza.values());
 	}
 }
 
