@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBloccataTest {
-	private StanzaBloccata sb;
+	private StanzaBloccataProtected sb;
 	private Attrezzo attrezzo;
 	private StanzaProtected stanzaNord;
 	private StanzaProtected stanzaSud;
 	@BeforeEach
 	void setUp() throws Exception {
-		sb=new StanzaBloccata("sb", "nord", "chiave");
+		sb=new StanzaBloccataProtected("sb", "nord", "chiave");
 		stanzaNord=new StanzaProtected("stanzaNord");
 		stanzaSud=new StanzaProtected("stanzaSud");
 		

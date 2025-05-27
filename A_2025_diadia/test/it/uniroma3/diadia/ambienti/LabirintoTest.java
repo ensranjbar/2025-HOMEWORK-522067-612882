@@ -9,7 +9,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class LabirintoTest {
 
-	private LabirintoBuilder lb;
+	
+	private Labirinto labirinto;
 	private Attrezzo martello;
 	private Attrezzo penna;
 	private Stanza stanza;
@@ -17,11 +18,17 @@ class LabirintoTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.lb = new LabirintoBuilder();
-		this.martello = new Attrezzo("martello", 1);
+		
 		this.penna = new Attrezzo("penna", 1);
-		// this.lanterna=new Attrezzo("lanterna", 1);
 		this.stanza = new Stanza("corrente");
+		this.labirinto = new LabirintoBuilder()
+				.addStanza("corrente")
+				.aggiungiAttrezzo("penna", 1)
+				.getLabirinto();
+		this.martello = new Attrezzo("martello", 1);
+		
+		// this.lanterna=new Attrezzo("lanterna", 1);
+		
 	}
 
 	@Test
@@ -34,11 +41,12 @@ class LabirintoTest {
 		assertNotNull(this.labirinto.getStanzaVincente());
 	}
 
-	@Test
-	void testAggiungiAttrezzoEsistente() {
-		assertTrue(labirinto.presenteAttrezzo(lanterna));
-
-	}
+//	@Test
+//	void testAggiungiAttrezzoEsistente() {
+//		stanza.addAttrezzo(lanterna);
+//		assertTrue(labirinto.getListaStanze(lanterna));
+//
+//	}
 
 	@Test
 	void testAggiungiAttrezzoNonEsistente() {

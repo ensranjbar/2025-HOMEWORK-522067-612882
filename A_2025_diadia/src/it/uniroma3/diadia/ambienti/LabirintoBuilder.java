@@ -76,6 +76,16 @@ public class LabirintoBuilder {
 	}
 	
 	
+	public List<Attrezzo> getAttrezziLabirinto(){
+		
+		List<Attrezzo> attrezziLabirinto = new ArrayList<Attrezzo>();
+		
+		for(Stanza s: this.getListaStanze()) {
+			attrezziLabirinto.addAll(s.getAttrezzi());
+		}
+		
+		return attrezziLabirinto;
+	}
 	
 
 	/**
@@ -104,8 +114,8 @@ public class LabirintoBuilder {
 //		return attrezzi;
 //	}
 
-	public Set<Stanza > getListaStanze() {
-		return new TreeSet<Stanza>(this.nome2stanza.values());
+	public List<Stanza> getListaStanze() {
+		return new ArrayList<Stanza>(this.nome2stanza.values());
 	}
 }
 

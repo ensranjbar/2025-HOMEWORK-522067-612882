@@ -1,12 +1,14 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,13 +19,31 @@ import org.junit.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilderTest {
+	
 	private LabirintoBuilder labirintoBuilder;
 	private String nomeStanzaIniziale = "Atrio";
 	private String nomeStanzaVincente = "Uscita";
+	private String stanza = "stanza";
 
 	@Before
 	public void setUp() throws Exception {
 		labirintoBuilder = new LabirintoBuilder();
+	}
+	
+	@Test
+	public void testAggiungiAttrezzoEsistente() {
+		
+		Labirinto monolocale = labirintoBuilder
+				.addStanzaIniziale(nomeStanzaIniziale)
+				.addStanzaVincente(nomeStanzaIniziale)
+				.addStanza(stanza)
+				.getLabirinto();
+		
+		labirintoBuilder.aggiungiAttrezzo("penna", 1);
+		
+		assertTrue(this.monolocale.getAttrezziLabirinto().contains("penna"));
+
+
 	}
 
 	@Test
@@ -108,7 +128,7 @@ public class LabirintoBuilderTest {
 		assertTrue(labirintoBuilder.getListaStanze().size()<=2);
 	}
 	
-???????????????????????????????????????????????????????????????????????????????	@Test
+	@Test
 	public void testPiuDiQuattroAdiacenti() {
 		Labirinto maze = labirintoBuilder
 				.addStanzaIniziale(nomeStanzaIniziale)
